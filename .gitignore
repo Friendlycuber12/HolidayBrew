@@ -1,0 +1,96 @@
+# =====================
+# Python
+# =====================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# =====================
+# FastAPI / Backend
+# =====================
+.env
+.env.*
+*.log
+logs/
+
+# Uvicorn / Gunicorn
+uvicorn.log
+gunicorn.log
+
+# =====================
+# Database
+# =====================
+*.db
+*.sqlite3
+postgres-data/
+pgdata/
+
+# =====================
+# Frontend / Node
+# =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+
+# =====================
+# IDE / Editor
+# =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+
+# =====================
+# OS / System
+# =====================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =====================
+# Testing / Coverage
+# =====================
+.coverage
+htmlcov/
+.pytest_cache/
+.cache/
+
+# =====================
+# Security / Secrets
+# =====================
+*.pem
+*.key
+*.crt
+*.p12
+
+# =====================
+# Migrations / Temp
+# =====================
+alembic.ini
+*.bak
+*.tmp
+*.old
+
+# =====================
+# Python tooling
+# =====================
+.mypy_cache/
+.ruff_cache/
+.pyright/

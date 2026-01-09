@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events | Holiday Brew</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
+    <link rel="icon" href="/static/favicon_io/favicon.ico">
+    <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            900: '#2C1A1D',
+                            800: '#3E2723',
+                            700: '#4E342E',
+                            100: '#D7CCC8',
+                        },
+                        festive: {
+                            red: '#B93B3B',
+                            green: '#2D4739',
+                            gold: '#D4AF37',
+                            cream: '#FDFBF7',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-coffee-900 text-white font-sans antialiased overflow-x-hidden selection:bg-festive-red selection:text-white">
+
+    <!-- Snow Effect -->
+    <div id="snow-container"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 top-0 bg-coffee-900/95 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='/'">
+                    <i class="ph-fill ph-coffee-bean text-3xl text-festive-gold"></i>
+                    <span class="font-serif text-2xl font-bold tracking-wider text-festive-cream">Holiday Brew</span>
+                </div>
+
+                <div class="hidden md:flex space-x-12 items-center">
+                    <a href="/" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Home
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/coffee" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Our Coffee
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/event" class="text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Events
+                        <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-festive-gold"></span>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" title="Toggle mobile menu" class="text-festive-cream hover:text-festive-gold focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-nav absolute w-full left-0 top-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="/" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Home</a>
+                <a href="/coffee" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Our Coffee</a>
+                <a href="/event" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-gold bg-white/10">Events</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Coming Soon Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Animated Background -->
+        <div class="absolute inset-0">
+            <video autoplay muted loop playsinline class="object-cover w-full h-full opacity-30">
+                <source src="https://www.pexels.com/download/video/4796950/" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-br from-coffee-900 via-coffee-800 to-festive-red/20"></div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-20 w-96 h-96 bg-festive-gold rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute bottom-20 right-20 w-80 h-80 bg-festive-red rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-festive-green rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+            <!-- Animated Icon -->
+            <div class="mb-8 animate-float">
+                <i class="ph-fill ph-gift text-8xl md:text-9xl text-festive-gold drop-shadow-2xl"></i>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl mb-6 text-white drop-shadow-2xl">
+                Events
+            </h1>
+
+            <!-- Coming Soon Text with Shimmer -->
+            <div class="mb-8">
+                <p class="font-sans text-3xl md:text-5xl lg:text-6xl font-bold uppercase tracking-widest text-gradient-shimmer mb-4" 
+                   style="background: linear-gradient(90deg, #D4AF37 0%, #FDFBF7 50%, #D4AF37 100%); 
+                          background-size: 200% auto; 
+                          -webkit-background-clip: text; 
+                          background-clip: text; 
+                          -webkit-text-fill-color: transparent;
+                          animation: shimmer 3s linear infinite;">
+                    Coming Soon...
+                </p>
+            </div>
+
+            <!-- Description -->
+            <p class="text-xl md:text-2xl text-white/80 font-light italic mb-12 max-w-2xl mx-auto leading-relaxed">
+                We're brewing something special this Christmas season. Stay tuned for festive events, tastings, and celebrations!
+            </p>
+
+            <!-- Decorative Divider -->
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <div class="w-16 h-0.5 bg-festive-gold/50"></div>
+                <i class="ph-fill ph-snowflake text-2xl text-festive-gold animate-spin" style="animation-duration: 10s;"></i>
+                <div class="w-16 h-0.5 bg-festive-gold/50"></div>
+            </div>
+
+            <!-- Notification Signup -->
+            <div class="max-w-md mx-auto">
+                <p class="text-sm text-white/60 mb-4 uppercase tracking-wider">Get Notified When We Launch</p>
+                <form id="notify-form" class="flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email" 
+                        required
+                        class="flex-1 px-6 py-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-festive-gold transition-all duration-300"
+                    >
+                    <button 
+                        type="submit"
+                        class="px-8 py-4 bg-festive-red hover:bg-festive-gold rounded-full font-medium uppercase text-sm tracking-wider transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] hover:-translate-y-1">
+                        Notify Me
+                    </button>
+                </form>
+                <p id="form-message" class="mt-4 text-sm text-festive-gold opacity-0 transition-opacity duration-300"></p>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="mt-16">
+                <a href="/" 
+                   class="inline-flex items-center gap-2 text-white/60 hover:text-festive-gold transition-colors duration-300 text-sm uppercase tracking-wider">
+                    <i class="ph ph-arrow-left text-lg"></i>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating Coffee Beans -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <i class="ph-fill ph-coffee-bean absolute text-4xl text-festive-gold/20 animate-float" style="top: 10%; left: 10%; animation-delay: 0s;"></i>
+            <i class="ph-fill ph-coffee-bean absolute text-3xl text-festive-gold/20 animate-float" style="top: 20%; right: 15%; animation-delay: 1s;"></i>
+            <i class="ph-fill ph-coffee-bean absolute text-5xl text-festive-gold/20 animate-float" style="bottom: 15%; left: 20%; animation-delay: 2s;"></i>
+            <i class="ph-fill ph-coffee-bean absolute text-4xl text-festive-gold/20 animate-float" style="bottom: 25%; right: 10%; animation-delay: 1.5s;"></i>
+        </div>
+    </section>
+
+    <footer class="bg-coffee-900 text-festive-cream/60 py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="https://www.instagram.com/keshavsoni._.12" title="Visit us on Instagram" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="https://wa.me/9960819611" title="Visit us on whatsapp" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-whatsapp-logo text-2xl"></i></a>
+                <a href="https://github.com/Friendlycuber12" title="Visit us on github" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-github-logo text-2xl"></i></a>
+            </div>
+            <p class="text-sm font-light">© 2025 Holiday Brew Coffee House. All rights reserved.</p>
+            <p class="text-xs mt-2 opacity-50">Designed with holiday cheer.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/event.js"></script>
+</body>
+</html>

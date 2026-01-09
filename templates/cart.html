@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Holiday Brew</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
+    <link rel="icon" href="/static/favicon_io/favicon.ico">
+    <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            900: '#2C1A1D',
+                            800: '#3E2723',
+                            700: '#4E342E',
+                            100: '#D7CCC8',
+                        },
+                        festive: {
+                            red: '#B93B3B',
+                            green: '#2D4739',
+                            gold: '#D4AF37',
+                            cream: '#FDFBF7',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-festive-cream font-sans antialiased">
+
+    <div id="snow-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-coffee-900/95 backdrop-blur-md shadow-lg py-4">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='/'">
+                    <i class="ph-fill ph-coffee-bean text-3xl text-festive-gold"></i>
+                    <span class="font-serif text-2xl font-bold tracking-wider text-festive-cream">Holiday Brew</span>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="/coffee" class="hidden md:block text-festive-cream hover:text-festive-gold transition-colors text-sm uppercase tracking-wide">
+                        Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Section -->
+    <section class="pt-32 pb-20 px-6 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="font-serif text-4xl md:text-5xl text-coffee-900 mb-2">Shopping Cart</h1>
+                <p class="text-coffee-700" id="cart-count">0 items in your cart</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Cart Items -->
+                <div class="lg:col-span-2">
+                    <div id="cart-items" class="space-y-4">
+                        <!-- Cart items will be dynamically inserted here -->
+                    </div>
+
+                    <!-- Empty Cart Message -->
+                    <div id="empty-cart" class="hidden bg-white rounded-xl p-12 text-center shadow-sm">
+                        <i class="ph ph-shopping-cart text-6xl text-coffee-900/20 mb-4"></i>
+                        <h3 class="font-serif text-2xl text-coffee-900 mb-2">Your cart is empty</h3>
+                        <p class="text-coffee-700 mb-6">Add some delicious coffee to get started!</p>
+                        <a href="/coffee" class="inline-flex items-center gap-2 px-6 py-3 bg-festive-red text-white rounded-lg hover:bg-festive-green transition-all">
+                            <i class="ph ph-storefront text-xl"></i>
+                            Browse Products
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl p-6 shadow-lg sticky top-32">
+                        <h2 class="font-serif text-2xl text-coffee-900 mb-6">Order Summary</h2>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between text-coffee-700">
+                                <span>Subtotal</span>
+                                <span id="subtotal">₹00</span>
+                            </div>
+                            <div class="flex justify-between text-coffee-700">
+                                <span>Shipping</span>
+                                <span id="shipping">₹5.00</span>
+                            </div>
+                            <div class="flex justify-between text-coffee-700">
+                                <span>Tax (10%)</span>
+                                <span id="tax">₹00</span>
+                            </div>
+                            <div class="border-t border-coffee-100 pt-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-serif text-xl text-coffee-900">Total</span>
+                                    <span class="font-bold text-2xl text-festive-gold" id="total">₹00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Promo Code -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-coffee-900 mb-2">Promo Code</label>
+                            <div class="flex gap-2">
+                                <input 
+                                    type="text" 
+                                    id="promo-code"
+                                    placeholder="Enter code"
+                                    class="flex-1 px-4 py-2 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold"
+                                >
+                                <button 
+                                    onclick="applyPromoCode()"
+                                    class="px-4 py-2 bg-festive-green text-white rounded-lg hover:bg-festive-gold transition-all"> 
+                                    Apply
+                                </button>
+                            </div>
+                            <p id="promo-message" class="text-xs mt-2 hidden"></p>
+                        </div>
+
+                        <!-- Checkout Button -->
+                        <button 
+                            id="checkout-btn"
+                            onclick="proceedToCheckout()"
+                            class="w-full bg-festive-red text-white font-medium py-4 rounded-lg hover:bg-festive-green transition-all hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2 mb-4">
+                            <span>Proceed to Checkout</span>
+                            <i class="ph ph-arrow-right text-xl"></i>
+                        </button>
+
+                        <button 
+                            onclick="window.location.href='/coffee'"
+                            class="w-full border-2 border-festive-gold text-festive-gold font-medium py-3 rounded-lg hover:bg-festive-gold hover:text-white transition-all">
+                            Continue Shopping
+                        </button>
+
+                        <!-- Trust Badges -->
+                        <div class="mt-6 pt-6 border-t border-coffee-100">
+                            <div class="flex items-center justify-around text-center">
+                                <div>
+                                    <i class="ph-fill ph-lock text-2xl text-festive-green mb-1"></i>
+                                    <p class="text-xs text-coffee-700">Secure Payment</p>
+                                </div>
+                                <div>
+                                    <i class="ph-fill ph-truck text-2xl text-festive-green mb-1"></i>
+                                    <p class="text-xs text-coffee-700">Free Shipping</p>
+                                </div>
+                                <div>
+                                    <i class="ph-fill ph-arrow-counter-clockwise text-2xl text-festive-green mb-1"></i>
+                                    <p class="text-xs text-coffee-700">Easy Returns</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="/static/js/cart.js"></script>
+</body>
+</html>

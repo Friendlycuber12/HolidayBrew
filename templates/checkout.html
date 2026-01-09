@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Holiday Brew</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
+    <link rel="icon" href="/static/favicon_io/favicon.ico">
+    <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            900: '#2C1A1D',
+                            800: '#3E2723',
+                            700: '#4E342E',
+                            100: '#D7CCC8',
+                        },
+                        festive: {
+                            red: '#B93B3B',
+                            green: '#2D4739',
+                            gold: '#D4AF37',
+                            cream: '#FDFBF7',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-festive-cream font-sans antialiased">
+
+    <div id="snow-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-coffee-900/95 backdrop-blur-md shadow-lg py-4">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='/'">
+                    <i class="ph-fill ph-coffee-bean text-3xl text-festive-gold"></i>
+                    <span class="font-serif text-2xl font-bold tracking-wider text-festive-cream">Holiday Brew</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <i class="ph-fill ph-lock text-festive-gold text-xl"></i>
+                    <span class="text-festive-cream text-sm">Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Section -->
+    <section class="pt-32 pb-20 px-6 min-h-screen">
+        <div class="max-w-7xl mx-auto">
+            <!-- Progress Steps -->
+            <div class="mb-12">
+                <div class="flex items-center justify-center">
+                    <div class="flex items-center">
+                        <div class="flex items-center text-festive-gold">
+                            <div class="w-10 h-10 bg-festive-gold text-white rounded-full flex items-center justify-center font-bold">1</div>
+                            <span class="ml-2 font-medium hidden sm:inline">Cart</span>
+                        </div>
+                        <div class="w-16 h-1 bg-festive-gold mx-2"></div>
+                        <div class="flex items-center text-festive-gold">
+                            <div class="w-10 h-10 bg-festive-gold text-white rounded-full flex items-center justify-center font-bold">2</div>
+                            <span class="ml-2 font-medium hidden sm:inline">Checkout</span>
+                        </div>
+                        <div class="w-16 h-1 bg-coffee-100 mx-2"></div>
+                        <div class="flex items-center text-coffee-700/50">
+                            <div class="w-10 h-10 bg-coffee-100 rounded-full flex items-center justify-center font-bold">3</div>
+                            <span class="ml-2 font-medium hidden sm:inline">Complete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Checkout Form -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Contact Information -->
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h2 class="font-serif text-2xl text-coffee-900 mb-6 flex items-center gap-2">
+                            <i class="ph-fill ph-user-circle text-festive-red"></i>
+                            Contact Information
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">First Name *</label>
+                                <input type="text" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Last Name *</label>
+                                <input type="text" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Email Address *</label>
+                                <input type="email" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Phone Number *</label>
+                                <input type="tel" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h2 class="font-serif text-2xl text-coffee-900 mb-6 flex items-center gap-2">
+                            <i class="ph-fill ph-map-pin text-festive-red"></i>
+                            Shipping Address
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Street Address *</label>
+                                <input type="text" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Apartment, suite, etc. (optional)</label>
+                                <input type="text" class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-coffee-900 mb-2">City *</label>
+                                    <input type="text" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-coffee-900 mb-2">State *</label>
+                                    <input type="text" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-coffee-900 mb-2">ZIP Code *</label>
+                                    <input type="text" required class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <h2 class="font-serif text-2xl text-coffee-900 mb-6 flex items-center gap-2">
+                            <i class="ph-fill ph-credit-card text-festive-red"></i>
+                            Payment Method
+                        </h2>
+                        
+                        <!-- Payment Options -->
+                        <div class="space-y-3 mb-6">
+                            <label class="flex items-center p-4 border-2 border-coffee-100 rounded-lg cursor-pointer hover:border-festive-gold transition-all">
+                                <input type="radio" name="payment" value="card" checked class="w-4 h-4 text-festive-red">
+                                <div class="ml-3 flex items-center gap-2">
+                                    <i class="ph-fill ph-credit-card text-xl"></i>
+                                    <span class="font-medium">Credit/Debit Card</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 border-2 border-coffee-100 rounded-lg cursor-pointer hover:border-festive-gold transition-all">
+                                <input type="radio" name="payment" value="UPI" class="w-4 h-4 text-festive-red">
+                                <div class="ml-3 flex items-center gap-2">
+                                    <i class="ph-fill ph-paypal-logo text-xl text-blue-600"></i>
+                                    <span class="font-medium">UPI</span>
+                                </div>
+                            </label>
+                            <label class="flex items-center p-4 border-2 border-coffee-100 rounded-lg cursor-pointer hover:border-festive-gold transition-all">
+                                <input type="radio" name="payment" value="cod" class="w-4 h-4 text-festive-red">
+                                <div class="ml-3 flex items-center gap-2">
+                                    <i class="ph-fill ph-money text-xl"></i>
+                                    <span class="font-medium">Cash on Delivery</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Card Details -->
+                        <div id="card-details" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Card Number *</label>
+                                <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-coffee-900 mb-2">Cardholder Name *</label>
+                                <input type="text" placeholder="John Doe" class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-coffee-900 mb-2">Expiry Date *</label>
+                                    <input type="text" placeholder="MM/YY" maxlength="5" class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-coffee-900 mb-2">CVV *</label>
+                                    <input type="text" placeholder="123" maxlength="4" class="w-full px-4 py-3 border border-coffee-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-festive-gold">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl p-6 shadow-lg sticky top-32">
+                        <h2 class="font-serif text-2xl text-coffee-900 mb-6">Order Summary</h2>
+                        
+                        <!-- Cart Items Preview -->
+                        <div id="checkout-items" class="space-y-4 mb-6 max-h-64 overflow-y-auto">
+                            <!-- Items will be loaded here -->
+                        </div>
+
+                        <div class="border-t border-coffee-100 pt-4 space-y-3 mb-6">
+                            <div class="flex justify-between text-coffee-700">
+                                <span>Subtotal</span>
+                                <span id="checkout-subtotal">₹0.00</span>
+                            </div>
+                            <div class="flex justify-between text-coffee-700">
+                                <span>Shipping</span>
+                                <span id="checkout-shipping">₹5.00</span>
+                            </div>
+                            <div class="flex justify-between text-coffee-700">
+                                <span>Tax (10%)</span>
+                                <span id="checkout-tax">₹0.00</span>
+                            </div>
+                            <div class="border-t border-coffee-100 pt-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-serif text-xl text-coffee-900">Total</span>
+                                    <span class="font-bold text-2xl text-festive-gold" id="checkout-total">₹0.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Place Order Button -->
+                        <button 
+                            id="place-order-btn"
+                            type="button"
+                            class="w-full bg-festive-green text-white font-medium py-4 rounded-lg hover:bg-festive-gold transition-all hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2 mb-3">
+                            <i class="ph-fill ph-check-circle text-xl"></i>
+                            <span>Place Order</span>
+                        </button>
+
+                        <button 
+                            onclick="window.location.href='/cart'"
+                            class="w-full text-festive-red hover:text-festive-gold transition-colors text-sm font-medium">
+                            ← Back to Cart
+                        </button>
+
+                        <!-- Security Badge -->
+                        <div class="mt-6 pt-6 border-t border-coffee-100">
+                            <div class="flex items-center justify-center gap-2 text-festive-green">
+                                <i class="ph-fill ph-lock text-xl"></i>
+                                <span class="text-sm font-medium">Secure SSL Encrypted Payment</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/static/js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Brew | Premium Christmas Coffee</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
+    <link rel="icon" href="/static/favicon_io/favicon.ico">
+    <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            900: '#2C1A1D',
+                            800: '#3E2723',
+                            700: '#4E342E',
+                            100: '#D7CCC8',
+                        },
+                        festive: {
+                            red: '#B93B3B',
+                            green: '#2D4739',
+                            gold: '#D4AF37',
+                            cream: '#FDFBF7',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-festive-cream text-coffee-900 font-sans antialiased overflow-x-hidden selection:bg-festive-red selection:text-white">
+
+    <div id="snow-container"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 top-0">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <i class="ph-fill ph-coffee-bean text-3xl text-festive-gold"></i>
+                    <span class="font-serif text-2xl font-bold tracking-wider text-festive-cream">Holiday Brew</span>
+                </div>
+
+                <div class="hidden md:flex space-x-12 items-center">
+                    <a href="/" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Home
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/coffee" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Our Coffee
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/event" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Events
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/cart" class="relative text-festive-cream hover:text-festive-gold transition-colors">
+                        <i class="ph ph-shopping-cart text-2xl"></i>
+                        <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-festive-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <a href="/cart" class="relative text-festive-cream">
+                        <i class="ph ph-shopping-cart text-2xl"></i>
+                        <span id="cart-badge-mobile" class="hidden absolute -top-2 -right-2 bg-festive-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                    <button id="mobile-menu-btn" type="button" title="Toggle mobile menu" class="text-festive-cream hover:text-festive-gold focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-nav absolute w-full left-0 top-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="/" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Home</a>
+                <a href="/coffee" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Our Coffee</a>
+                <a href="/event" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Events</a>
+                <a href="/login" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 w-full h-full">
+            <video autoplay muted loop playsinline class="object-cover w-full h-full">
+                <source src="https://www.pexels.com/download/video/2909914/" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-coffee-900/60 via-coffee-900/40 to-coffee-900/90"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto reveal-on-scroll">
+            <div class="mb-4 inline-block px-4 py-1 border border-festive-gold/30 rounded-full bg-coffee-900/40 backdrop-blur-sm">
+                <span class="text-festive-gold text-xs font-bold tracking-[0.2em] uppercase">Est. 2025 • Seasonal Collection</span>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-festive-cream mb-6 drop-shadow-lg leading-tight">
+                Warmth in <br/> <span class="italic text-festive-red">Every Sip</span>
+            </h1>
+            <p class="text-lg md:text-xl text-festive-cream/90 mb-10 font-light max-w-2xl mx-auto">
+                Experience the magic of artisanal brewing this Christmas. From rich espresso to festive frappes, find your holiday joy.
+            </p>
+            <button onclick="document.getElementById('our-coffee').scrollIntoView({behavior: 'smooth'})" 
+                class="group relative inline-flex items-center justify-center px-8 py-4 bg-festive-red overflow-hidden rounded-full transition-all duration-300 hover:bg-red-700 hover:shadow-[0_0_20px_rgba(185,59,59,0.5)] hover:-translate-y-1">
+                <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                <span class="relative text-white font-medium tracking-widest uppercase text-sm">Explore Menu</span>
+            </button>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="ph ph-arrow-down text-white/50 text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Our Coffee Section -->
+    <section id="our-coffee" class="py-24 px-6 md:px-12 bg-festive-cream relative">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-festive-green/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
+
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="font-serif text-4xl md:text-5xl text-coffee-900 mb-4">Our Coffee Selection</h2>
+                <div class="w-24 h-1 bg-festive-red mx-auto rounded-full"></div>
+                <p class="mt-4 text-coffee-700 italic">Curated beans, premium roasts, and festive specials.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                
+                <div class="lg:col-span-4 space-y-6 reveal-on-scroll transition-delay-100ms">
+                    <h3 class="text-xl font-serif text-coffee-900 border-b border-coffee-900/10 pb-2 mb-6 flex items-center gap-2">
+                        <i class="ph-fill ph-cup text-festive-red"></i> Signature Brews
+                    </h3>
+                    
+                    <div class="group relative h-48 rounded-xl overflow-hidden cursor-pointer shadow-md">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" alt="Black Coffee" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300"></div>
+                        <div class="absolute bottom-0 left-0 p-4 text-white">
+                            <h4 class="font-serif text-xl group-hover:text-festive-gold transition-colors">Artisan Black</h4>
+                            <p class="text-xs text-white/80 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">Rich, bold, and pure.</p>
+                        </div>
+                    </div>
+
+                    <div class="group relative h-48 rounded-xl overflow-hidden cursor-pointer shadow-md">
+                        <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=600&auto=format&fit=crop" alt="Latte Art" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300"></div>
+                        <div class="absolute bottom-0 left-0 p-4 text-white">
+                            <h4 class="font-serif text-xl group-hover:text-festive-gold transition-colors">Velvet Latte</h4>
+                            <p class="text-xs text-white/80 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">Frothy milk meets espresso.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-3 reveal-on-scroll transition-delay-200ms">
+                    <h3 class="text-xl font-serif text-coffee-900 border-b border-coffee-900/10 pb-2 mb-6 flex items-center gap-2">
+                        <i class="ph-fill ph-package text-festive-red"></i> Formats
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-festive-gold/30">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-festive-green/10 flex items-center justify-center text-festive-green group-hover:bg-festive-green group-hover:text-white transition-colors">
+                                    <i class="ph-fill ph-brandy text-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-coffee-900">Ready to Drink</h5>
+                                    <p class="text-xs text-gray-500">Chilled & bottled daily</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-festive-gold/30">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-festive-red/10 flex items-center justify-center text-festive-red group-hover:bg-festive-red group-hover:text-white transition-colors">
+                                    <i class="ph-fill ph-scroll text-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-coffee-900">Bean Sachets</h5>
+                                    <p class="text-xs text-gray-500">Brew at home easily</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-festive-gold/30">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-coffee-900/10 flex items-center justify-center text-coffee-900 group-hover:bg-coffee-900 group-hover:text-white transition-colors">
+                                    <i class="ph-fill ph-lightning text-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-coffee-900">Premium Instant</h5>
+                                    <p class="text-xs text-gray-500">Freeze-dried perfection</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-6 bg-festive-red rounded-xl text-white text-center relative overflow-hidden">
+                        <div class="absolute -top-4 -right-4 text-white/10">
+                            <i class="ph-fill ph-snowflake text-9xl"></i>
+                        </div>
+                        <h4 class="font-serif text-xl mb-2 relative z-10">Holiday Special</h4>
+                        <p class="text-sm text-white/90 mb-4 relative z-10">Get a free gingerbread cookie with every frappe order.</p>
+                        <button onclick="window.location.href='/coffee'" class="px-4 py-2 bg-white text-festive-red text-xs font-bold uppercase rounded hover:bg-festive-gold hover:text-white transition-colors relative z-10">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 reveal-on-scroll transition-delay-300ms">
+                     <h3 class="text-xl font-serif text-coffee-900 border-b border-coffee-900/10 pb-2 mb-6 flex items-center gap-2">
+                        <i class="ph-fill ph-storefront text-festive-red"></i> Shop & Gear
+                    </h3>
+
+                    <div id="products-grid" class="grid grid-cols-2 gap-4">
+                        <!-- Products will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="/coffee" class="inline-flex items-center gap-2 px-8 py-4 bg-festive-gold text-white rounded-full font-medium hover:bg-festive-green transition-all hover:shadow-xl hover:-translate-y-1">
+                    <span>View All Products</span>
+                    <i class="ph ph-arrow-right text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="relative h-screen flex items-center justify-center overflow-hidden">
+         <div class="absolute inset-0 w-full h-full">
+            <video autoplay muted loop playsinline class="object-cover w-full h-full filter brightness-50">
+                <source src="https://www.pexels.com/download/video/4796950/" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-coffee-900/60"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6">
+            <div class="mb-6 animate-float">
+                <i class="ph-fill ph-gift text-6xl text-festive-gold drop-shadow-lg"></i>
+            </div>
+            <h2 class="font-serif text-5xl md:text-7xl text-white mb-4">Events</h2>
+            <p class="font-sans text-xl md:text-3xl text-gradient-shimmer font-bold uppercase tracking-widest mb-4" style="color:aliceblue">
+                Coming Soon...
+            </p>
+            <p class="text-white/80 font-light italic text-lg mb-8">Brewing something special this Christmas.</p>
+            <a href="/event" class="inline-flex items-center gap-2 px-6 py-3 bg-festive-red text-white rounded-full hover:bg-festive-gold transition-all">
+                <span>Learn More</span>
+                <i class="ph ph-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-coffee-900 text-festive-cream/60 py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="https://www.instagram.com/keshavsoni._.12" title="Visit us on Instagram" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="https://wa.me/9960819611" title="Visit us on whatsapp" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-whatsapp-logo text-2xl"></i></a>
+                <a href="https://github.com/Friendlycuber12" title="Visit us on github" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-github-logo text-2xl"></i></a>
+            </div>
+            <p class="text-sm font-light">© 2025 Holiday Brew Coffee House. All rights reserved.</p>
+            <p class="text-xs mt-2 opacity-50">Designed with holiday cheer.</p>
+        </div>
+    </footer>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

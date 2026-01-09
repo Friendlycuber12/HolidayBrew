@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Coffee | Holiday Brew</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
+    <link rel="icon" href="/static/favicon_io/favicon.ico">
+    <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            900: '#2C1A1D',
+                            800: '#3E2723',
+                            700: '#4E342E',
+                            100: '#D7CCC8',
+                        },
+                        festive: {
+                            red: '#B93B3B',
+                            green: '#2D4739',
+                            gold: '#D4AF37',
+                            cream: '#FDFBF7',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body class="bg-festive-cream text-coffee-900 font-sans antialiased overflow-x-hidden selection:bg-festive-red selection:text-white">
+
+    <!-- Snow Effect -->
+    <div id="snow-container"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 top-0 bg-coffee-900/95 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.location.href='/'">
+                    <i class="ph-fill ph-coffee-bean text-3xl text-festive-gold"></i>
+                    <span class="font-serif text-2xl font-bold tracking-wider text-festive-cream">Holiday Brew</span>
+                </div>
+
+                <div class="hidden md:flex space-x-12 items-center">
+                    <a href="/" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Home
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/coffee" class="text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Our Coffee
+                        <span class="absolute -bottom-2 left-0 w-full h-0.5 bg-festive-gold"></span>
+                    </a>
+                    <a href="/event" class="text-festive-cream/80 hover:text-festive-gold font-medium tracking-wide transition-colors duration-300 text-sm uppercase relative group">
+                        Events
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-festive-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="/cart" class="relative text-festive-cream hover:text-festive-gold transition-colors">
+                        <i class="ph ph-shopping-cart text-2xl"></i>
+                        <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-festive-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" title="Toggle mobile menu" class="text-festive-cream hover:text-festive-gold focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-nav absolute w-full left-0 top-full shadow-lg">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="/" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Home</a>
+                <a href="/coffee" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-gold bg-white/10">Our Coffee</a>
+                <a href="/event" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-festive-cream hover:bg-white/10">Events</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 px-6 bg-gradient-to-br from-coffee-900 to-coffee-800 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-festive-gold rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-festive-red rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <div class="mb-4 inline-block px-4 py-1 border border-festive-gold/30 rounded-full bg-white/10 backdrop-blur-sm">
+                <span class="text-festive-gold text-xs font-bold tracking-[0.2em] uppercase">Premium Selection</span>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl mb-6">Our Coffee Collection</h1>
+            <p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-light">
+                From signature brews to holiday specials, discover the perfect blend for every moment
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Tabs -->
+    <section class="sticky top-24 z-40 bg-festive-cream/95 backdrop-blur-md shadow-md py-4 px-6 border-b border-coffee-900/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-3">
+                <button class="filter-btn active px-6 py-2 rounded-full font-medium text-sm uppercase tracking-wide transition-all duration-300" data-category="all">
+                    All Products
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full font-medium text-sm uppercase tracking-wide transition-all duration-300" data-category="coffee">
+                    Special Blends
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full font-medium text-sm uppercase tracking-wide transition-all duration-300" data-category="drinks">
+                    Ready to Drink
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full font-medium text-sm uppercase tracking-wide transition-all duration-300" data-category="equipment">
+                    Equipment
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full font-medium text-sm uppercase tracking-wide transition-all duration-300" data-category="gifts">
+                    Gift Sets
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="py-16 px-6 bg-festive-cream">
+        <div class="max-w-7xl mx-auto">
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Brewing Guide Section -->
+    <section class="py-20 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl text-coffee-900 mb-4">Brewing Guide</h2>
+                <div class="w-24 h-1 bg-festive-red mx-auto rounded-full"></div>
+                <p class="mt-4 text-coffee-700 italic">Perfect your cup with our expert tips</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 rounded-xl bg-festive-cream hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-festive-red/10 rounded-full flex items-center justify-center">
+                        <i class="ph-fill ph-thermometer text-3xl text-festive-red"></i>
+                    </div>
+                    <h3 class="font-serif text-xl mb-3 text-coffee-900">Temperature</h3>
+                    <p class="text-coffee-700 text-sm">Brew at 195-205°F (90-96°C) for optimal extraction and flavor balance</p>
+                </div>
+
+                <div class="text-center p-6 rounded-xl bg-festive-cream hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-festive-green/10 rounded-full flex items-center justify-center">
+                        <i class="ph-fill ph-timer text-3xl text-festive-green"></i>
+                    </div>
+                    <h3 class="font-serif text-xl mb-3 text-coffee-900">Brew Time</h3>
+                    <p class="text-coffee-700 text-sm">4-5 minutes for French press, 20-30 seconds for espresso shots</p>
+                </div>
+
+                <div class="text-center p-6 rounded-xl bg-festive-cream hover:shadow-lg transition-shadow">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-festive-gold/10 rounded-full flex items-center justify-center">
+                        <i class="ph-fill ph-scales text-3xl text-festive-gold"></i>
+                    </div>
+                    <h3 class="font-serif text-xl mb-3 text-coffee-900">Coffee Ratio</h3>
+                    <p class="text-coffee-700 text-sm">Use 1:15 ratio - 1 gram of coffee per 15ml of water for best results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-coffee-900 text-festive-cream/60 py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="https://www.instagram.com/keshavsoni._.12" title="Visit us on Instagram" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-instagram-logo text-2xl"></i></a>
+                <a href="https://wa.me/9960819611" title="Visit us on whatsapp" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-whatsapp-logo text-2xl"></i></a>
+                <a href="https://github.com/Friendlycuber12" title="Visit us on github" target="_blank" class="hover:text-festive-gold transition-colors"><i class="ph-fill ph-github-logo text-2xl"></i></a>
+            </div>
+            <p class="text-sm font-light">© 2025 Holiday Brew Coffee House. All rights reserved.</p>
+            <p class="text-xs mt-2 opacity-50">Designed with holiday cheer.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/coffee.js"></script>
+</body>
+</html>
