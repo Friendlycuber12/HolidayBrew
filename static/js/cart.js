@@ -205,7 +205,7 @@ function proceedToCheckout() {
     
     // Save cart summary for checkout page
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = 5.00;
+    const shipping = 50;
     const tax = subtotal * 0.10;
     const total = subtotal + shipping + tax;
     

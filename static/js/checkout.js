@@ -3,7 +3,7 @@
 let cart = [];
 let checkoutSummary = {
     subtotal: 0,
-    shipping: 5.00,
+    shipping: 50,
     tax: 0,
     total: 0
 };
@@ -42,15 +42,17 @@ function displayOrderItems() {
 
 // Update checkout summary
 function updateCheckoutSummary() {
+    // Calculate subtotal (prices are in rupees as whole numbers)
     checkoutSummary.subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    checkoutSummary.shipping = 5.00;
-    checkoutSummary.tax = checkoutSummary.subtotal * 0.10;
+    checkoutSummary.shipping = 50; // ₹50 shipping
+    checkoutSummary.tax = Math.round(checkoutSummary.subtotal * 0.10); // 10% tax, rounded
     checkoutSummary.total = checkoutSummary.subtotal + checkoutSummary.shipping + checkoutSummary.tax;
     
-    document.getElementById('checkout-subtotal').textContent = `₹${checkoutSummary.subtotal.toFixed(2)}`;
-    document.getElementById('checkout-shipping').textContent = `₹${checkoutSummary.shipping.toFixed(2)}`;
-    document.getElementById('checkout-tax').textContent = `₹${checkoutSummary.tax.toFixed(2)}`;
-    document.getElementById('checkout-total').textContent = `₹${checkoutSummary.total.toFixed(2)}`;
+    // Display as whole rupees (no decimals needed)
+    document.getElementById('checkout-subtotal').textContent = `₹${checkoutSummary.subtotal}`;
+    document.getElementById('checkout-shipping').textContent = `₹${checkoutSummary.shipping}`;
+    document.getElementById('checkout-tax').textContent = `₹${checkoutSummary.tax}`;
+    document.getElementById('checkout-total').textContent = `₹${checkoutSummary.total}`;
 }
 
 // Place Order
@@ -191,6 +193,12 @@ function setupPaymentMethodToggle() {
     const paymentRadios = document.querySelectorAll('input[name="payment"]');
     const cardDetails = document.getElementById('card-details');
     
+    // Hide card details initially if not card payment
+    const selectedPayment = document.querySelector('input[name="payment"]:checked');
+    if (selectedPayment && selectedPayment.value !== 'card') {
+        cardDetails.style.display = 'none';
+    }
+    
     paymentRadios.forEach(radio => {
         radio.addEventListener('change', (e) => {
             if (e.target.value === 'card') {
@@ -272,7 +280,6 @@ function createSnowEffect() {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
     createSnowEffect();
     loadCheckoutData();
     setupPaymentMethodToggle();
