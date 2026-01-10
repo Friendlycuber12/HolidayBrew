@@ -203,16 +203,6 @@ function proceedToCheckout() {
         return;
     }
     
-    // Check if user is logged in
-    const user = JSON.parse(localStorage.getItem('holidayBrewUser') || 'null');
-    if (!user || !user.loggedIn) {
-        showNotification('Please login to continue', 'error');
-        setTimeout(() => {
-            window.location.href = '/login?return=/checkout';
-        }, 1500);
-        return;
-    }
-    
     // Save cart summary for checkout page
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = 5.00;

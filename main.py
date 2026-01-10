@@ -58,9 +58,6 @@ def serve_home(request: Request):
 def events(request: Request):
     return templates.TemplateResponse("event.html", {"request": request})
 
-@app.get("/login", name="login", tags=["Frontend"])
-def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
 
 @app.get("/cart", name="cart", tags=["Frontend"])
 def cart(request: Request):
@@ -77,14 +74,6 @@ def coffee(request: Request):
 @app.get("/order_success", name="order-success", tags=["Frontend"])
 def order_success(request: Request):
     return templates.TemplateResponse("order_success.html", {"request": request})
-
-@app.get("/signup", name="signup", tags=["Frontend"])
-def signup(request: Request):
-    return templates.TemplateResponse("signup.html", {"request": request})
-
-@app.get("/forgot", name="forgot", tags=["Frontend"])
-def forgot(request: Request):
-    return templates.TemplateResponse("forgot.html", {"request": request})
 
 # CORS configuration
 allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
