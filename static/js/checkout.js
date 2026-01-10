@@ -270,17 +270,6 @@ function createSnowEffect() {
     }
 }
 
-// Check if user is logged in
-function checkAuth() {
-    const user = JSON.parse(localStorage.getItem('holidayBrewUser') || 'null');
-    if (!user || !user.loggedIn) {
-        showNotification('Please login to checkout', 'error');
-        setTimeout(() => {
-            window.location.href = 'login.html?return=checkout.html';
-        }, 2000);
-    }
-}
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     checkAuth();
