@@ -77,7 +77,7 @@ function renderCart() {
 // Update order summary
 function updateSummary() {
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = cart.length > 0 ? 5.00 : 0;
+    const shipping = cart.length > 0 ? 50 : 0;
     const tax = subtotal * 0.10;
     const total = subtotal + shipping + tax;
     
@@ -166,7 +166,7 @@ function applyPromoCode() {
         // Apply discount to summary by recalculating from cart
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const discountedSubtotal = subtotal * (1 - discount);
-        const shipping = cart.length > 0 ? 5.00 : 0;
+        const shipping = cart.length > 0 ? 50 : 0;
         const tax = discountedSubtotal * 0.10;
         const total = discountedSubtotal + shipping + tax;
         
