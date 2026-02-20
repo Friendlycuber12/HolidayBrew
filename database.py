@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine , text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import QueuePool
 import os
@@ -21,6 +21,7 @@ if not DATABASE_URL:
 # Create engine with connection pooling
 engine = create_engine(
     DATABASE_URL,
+    connect_args={"sslmode":"require"},
     poolclass=QueuePool,
     pool_size=5,        
     max_overflow=10,      
@@ -51,7 +52,7 @@ def get_db():
 def test_connection():
     try:
         with engine.connect() as connection:
-            connection.execute("SELECT 1")
+            connection.execute(text("SELECT 1"))
         logger.info("✓ Database connection successful")
         return True
     except Exception as e:
