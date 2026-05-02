@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine , text
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import QueuePool
 import os
@@ -18,17 +18,27 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL environment variable is not set")
 
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
+engine_options = {
+    "pool_pre_ping": True,
+    "echo": False,
+}
+
+if DATABASE_URL.startswith("sqlite"):
+    engine_options["connect_args"] = {"check_same_thread": False}
+else:
+    engine_options.update({
+        "connect_args": {"sslmode": "require"},
+        "poolclass": QueuePool,
+        "pool_size": 5,
+        "max_overflow": 10,
+        "pool_recycle": 3600,
+    })
+
 # Create engine with connection pooling
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={"sslmode":"require"},
-    poolclass=QueuePool,
-    pool_size=5,        
-    max_overflow=10,      
-    pool_pre_ping=True,  
-    pool_recycle=3600,    
-    echo=False            
-)
+engine = create_engine(DATABASE_URL, **engine_options)
 
 # Create session factory
 SessionLocal = sessionmaker(

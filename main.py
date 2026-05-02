@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException, Depends, status
-from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from models import Product, ProductCreate, ProductUpdate, AvailabilityUpdate, PriceUpdate, NameUpdate
 from database import SessionLocal, engine, get_db
@@ -14,7 +13,7 @@ import logging
 from fastapi import Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from database import engine, Base
+from database import Base
 
 Base.metadata.create_all(bind=engine)
 
@@ -75,18 +74,26 @@ def coffee(request: Request):
 def order_success(request: Request):
     return templates.TemplateResponse("order_success.html", {"request": request})
 
+def get_allowed_origins() -> list[str]:
+    origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+    cleaned_origins = [origin.strip() for origin in origins if origin.strip()]
+
+    if cleaned_origins:
+        return cleaned_origins
+
+    return [
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+    ]
+
+
 # CORS configuration
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5500",
-        "https://holiday-brew.netlify.app"
-    ],
+    allow_origins=get_allowed_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-
 )
 
 # Initial products data
@@ -437,7 +444,7 @@ async def update_name(
 # Delete product
 @app.delete("/products/{product_id}", tags=["Products"])
 async def delete_product(product_id: int, db: Session = Depends(get_db)):
-    """Delete a product"""
+    """Delete product"""
     try:
         db_product = db.query(database_models.Product).filter(
             database_models.Product.id == product_id

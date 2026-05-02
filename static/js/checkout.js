@@ -15,7 +15,7 @@ function loadCheckoutData() {
     if (cart.length === 0) {
         showNotification('Your cart is empty!', 'error');
         setTimeout(() => {
-            window.location.href = 'coffee.html';
+            window.location.href = '/coffee';
         }, 2000);
         return;
     }
@@ -173,12 +173,12 @@ function showOrderSuccess(orderId) {
             </p>
             
             <button 
-                onclick="window.location.href='index.html'"
+                onclick="window.location.href='/'"
                 class="w-full bg-festive-green text-white font-medium py-3 rounded-lg hover:bg-festive-gold transition-all mb-2">
                 Back to Home
             </button>
             <button 
-                onclick="window.location.href='coffee.html'"
+                onclick="window.location.href='/coffee'"
                 class="w-full text-festive-red hover:text-festive-gold transition-colors text-sm font-medium">
                 Continue Shopping
             </button>

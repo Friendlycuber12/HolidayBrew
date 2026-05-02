@@ -6,7 +6,7 @@ function loadOrderDetails() {
     
     if (orders.length === 0) {
         // No orders found, redirect to home
-        window.location.href = 'index.html';
+        window.location.href = '/';
         return;
     }
     
