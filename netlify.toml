@@ -1,0 +1,28 @@
+[build]
+  command = "bash scripts/build-netlify.sh"
+  publish = "dist"
+
+[[redirects]]
+  from = "/coffee"
+  to = "/coffee.html"
+  status = 200
+
+[[redirects]]
+  from = "/event"
+  to = "/event.html"
+  status = 200
+
+[[redirects]]
+  from = "/cart"
+  to = "/cart.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/checkout.html"
+  status = 200
+
+[[redirects]]
+  from = "/order_success"
+  to = "/order_success.html"
+  status = 200
