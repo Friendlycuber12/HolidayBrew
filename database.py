@@ -12,11 +12,9 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
-# Get database URL from environment variables
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL environment variable is not set")
+# Railway can inject DATABASE_URL when a Postgres service is attached. Use a
+# local SQLite database as a safe fallback so the web service can still boot.
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./holidaybrew.db")
 
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
