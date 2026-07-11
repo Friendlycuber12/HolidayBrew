@@ -54,7 +54,8 @@ The platform is inspired by a festive premium coffee brand experience with seaso
 - SQLite
 
 ## Deployment
-- Railway
+- Render (backend + managed PostgreSQL, via `render.yaml` Blueprint)
+- GitHub Actions (scheduled keep-alive ping to prevent free-tier cold starts)
 
 ---
 
@@ -63,14 +64,14 @@ The platform is inspired by a festive premium coffee brand experience with seaso
 ```bash
 HolidayBrew/
 │
-├── main.py                 # Main FastAPI application
-├── database.py             # Database configuration
-├── database_models.py      # SQLAlchemy models
-├── models.py               # Pydantic schemas
-├── requirements.txt        # Python dependencies
-├── create_database.py      # Database initialization script
+├── main.py                     # Main FastAPI application
+├── database.py                 # Database configuration
+├── database_models.py          # SQLAlchemy models
+├── models.py                   # Pydantic schemas
+├── requirements.txt            # Python dependencies
+├── create_database.py          # Local Postgres setup script (dev only)
 │
-├── templates/              # HTML templates
+├── templates/                  # HTML templates
 │   ├── index.html
 │   ├── coffee.html
 │   ├── cart.html
@@ -83,7 +84,10 @@ HolidayBrew/
 │   ├── js/
 │   └── images/
 │
-└── railway.json            # Railway deployment config
+├── render.yaml                 # Render deployment blueprint (web service + DB)
+└── .github/
+    └── workflows/
+        └── keep-alive.yml      # Pings /health every 13 min to prevent sleep
 ```
 
 ---
@@ -127,7 +131,7 @@ pip install -r requirements.txt
 
 ## 4. Configure Environment Variables
 
-Create a `.env` file:
+Create a `.env` file for **local development**:
 
 ```env
 DATABASE_URL=sqlite:///./holidaybrew.db
@@ -136,11 +140,13 @@ API_VERSION=1.0.0
 ALLOWED_ORIGINS=http://localhost:8000
 ```
 
-For PostgreSQL:
+For local PostgreSQL instead of SQLite:
 
 ```env
 DATABASE_URL=postgresql://username:password@host:port/database
 ```
+
+> **Note:** In production on Render, `DATABASE_URL` is injected automatically by the linked managed Postgres database defined in `render.yaml` — no manual `.env` setup needed there.
 
 ---
 
@@ -208,14 +214,14 @@ The database initializes with products such as:
 
 # 🌐 Deployment
 
-This project is configured for deployment on Railway.
+This project is deployed on **Render** using a Blueprint (`render.yaml`), which provisions both the FastAPI web service and a managed free-tier PostgreSQL database in one step.
 
 To deploy:
 
-1. Push repository to GitHub
-2. Connect repository to Railway
-3. Add environment variables
-4. Deploy automatically
+1. Push the repository to GitHub (including `render.yaml`).
+2. On [render.com](https://render.com), choose **New → Blueprint** and connect this repository.
+3. Render reads `render.yaml` and creates the web service + database automatically, wiring `DATABASE_URL` between them.
+4. Once live, copy the app's URL and add it as the `RENDER_APP_URL` secret in this repo's GitHub Actions settings, so the `keep-alive.yml` workflow can ping `/health` every 13 minutes and prevent the free-tier service from sleeping.
 
 ---
 
