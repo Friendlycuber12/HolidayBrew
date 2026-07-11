@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: holidaybrew-api
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: holidaybrew-db
+          property: connectionString
+      - key: API_TITLE
+        value: "Holiday Brew API"
+      - key: API_VERSION
+        value: "1.0.0"
+      - key: ALLOWED_ORIGINS
+        value: "https://holidaybrew.onrender.com"
+
+databases:
+  - name: holidaybrew-db
+    plan: free
+    databaseName: holidaybrew
+    user: holidaybrew
